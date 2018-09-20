@@ -51,14 +51,13 @@ Remove-Item -Force vs_BuildTools.exe;
 
 Invoke-WebRequest -Uri https://download.microsoft.com/download/E/E/D/EEDF18A8-4AED-4CE0-BEBE-70A83094FC5A/BuildTools_Full.exe -OutFile BuildTools_Full.exe;
 Start-Process BuildTools_Full.exe -ArgumentList "/NoRestart", "/Silent" -Wait;
-
 # setup vsts agentcon 
-Invoke-WebRequest -Uri https://vstsagentpackage.azureedge.net/agent/2.140.0/vsts-agent-win-x64-2.140.0.zip -OutFile vsts-agent.zip
+Invoke-WebRequest -Uri https://vstsagentpackage.azureedge.net/agent/2.140.0/vsts-agent-win-x64-2.140.0.zip -OutFile "$HOME\vsts-agent.zip"
 
-mkdir agent
+mkdir c:\agent
+cd c:\agent
 Add-Type -AssemblyName System.IO.Compression.FileSystem 
-[System.IO.Compression.ZipFile]::ExtractToDirectory("..\vsts-agent.zip", "agent")
-cd agent
-.\config.cmd --unattended --url https://guestlinelabs.visualstudio.com --auth pat --token $pat --pool default --agent (hostname) --acceptTeeEula  --runAsService
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\vsts-agent.zip", "$pwd")
 
+.\config.cmd --unattended --url https://guestlinelabs.visualstudio.com --auth pat --token $pat --pool default --agent (hostname) --acceptTeeEula  --runAsService
 # .\config.cmd remove --auth pat --token $pat 
