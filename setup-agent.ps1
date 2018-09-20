@@ -26,6 +26,7 @@ Start-Process silverlight_sdk.exe -ArgumentList '/quiet', '/norestart' -Wait;
 
 # Install Visual Studio Build Tools https://github.com/MicrosoftDocs/visualstudio-docs/blob/master/docs/install/workload-component-id-vs-build-tools.md
 Invoke-WebRequest -Uri "https://download.visualstudio.microsoft.com/download/pr/10930955/e64d79b40219aea618ce2fe10ebd5f0d/vs_BuildTools.exe" -OutFile vs_BuildTools.exe;
+Start-Process vs_BuildTools.exe -ArgumentList "--quiet", "--norestart", "--wait", "--add Microsoft.VisualStudio.Workload.MSBuildTools" -Wait;
 Start-Process vs_BuildTools.exe -ArgumentList "--quiet", "--norestart", "--wait", "--add Microsoft.VisualStudio.Workload.AzureBuildTools", "--includeOptional" -Wait;
 Start-Process vs_BuildTools.exe -ArgumentList "--quiet", "--norestart", "--wait", "--add Microsoft.VisualStudio.Workload.UniversalBuildTools", "--includeRecommended" -Wait;
 
